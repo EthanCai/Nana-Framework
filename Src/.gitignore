@@ -1,0 +1,24 @@
+# Standard VS.NET and ReSharper Foo
+_ReSharper*
+*.user
+*.suo*
+*.cache
+* Thumbs.db
+*.csproj.user
+*.csproj.ReSharper
+
+# 排除单元测试结果
+/TestResults
+
+# 排除Nuget下载的第三方程序集
+/packages
+
+# 排除dotNET项目下编译生成的文件
+/*/[Bb]in/
+/*/[Oo]bj/
+/*/log/
+
+# 排除Node项目下的Node module, iisnode, debug文件
+/*/node_modules/
+/*/iisnode/
+/*/*.js.debug/
