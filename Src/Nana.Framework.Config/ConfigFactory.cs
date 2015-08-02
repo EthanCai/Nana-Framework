@@ -1,49 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Nana.Framework.Config
 {
     public class ConfigFactory
     {
-        /// <summary>
-        /// 获得配置
-        /// </summary>
-        /// <typeparam name="T">配置类泛型</typeparam>
-        /// <returns>配置实例</returns>
-        public static T GetConfig<T>() where T : ConfigUnit
+        private readonly static Settings _settings = Settings.GetDefaultSettings();
+
+        public static Settings Settings
         {
-            return Config.GetConfigUnit(typeof(T)) as T;
+            get { return _settings; }
         }
 
         /// <summary>
-        /// 强制从本地文件重新加载配置；
-        /// 仅重新加载已经加载过的配置，因为没有加载过的配置在第一次使用时会去加载最新配置文件到内存；
+        /// 获得指定配置集合的最新版配置信息
         /// </summary>
-        public static void LoadConfigManually()
-        {
-            Config.LoadConfigManually();
-        }
-
-
-        /// <summary>
-        /// 获取当前应用内存中所有已经加载的ConfigUnit
-        /// </summary>
+        /// <param name="name">配置集合的名称</param>
         /// <returns></returns>
-        public static IList<ConfigUnit> GetAllConfigUnitListInMemory()
+        public static ConfigUnit GetConfig(string confName, string version)
         {
-            return Config.GetAllConfigUnitListInMemory();
+            ConfigUnit result = null;
+
+            result = ConfigUnitPool.Instance.Get(confName, version);
+            if (result != null)
+            {
+                return result;
+            }
+
+            result = Settings.Loader.LoadConfig(confName, version);
+            if (result != null)
+            {
+                ConfigUnitPool.Instance.Set(confName, version, result);
+            }
+
+            return result;
         }
 
-        /// <summary>
-        /// 获取当前应用对应的所有配置文件
-        /// </summary>
-        /// <returns></returns>
-        public static List<FileInfo> GetAllConfigFileListOfCurrentApp()
-        {
-            return Config.GetAllConfigFileListOfCurrentApp();
-        }
     }
 }
