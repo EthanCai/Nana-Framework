@@ -26,16 +26,44 @@ namespace Nana.Framework.Config
         {
             ConfigUnit result = null;
 
-            result = ConfigUnitPool.Instance.Get(confName, version);
-            if (result != null)
+            try
             {
-                return result;
-            }
+                Settings.Logger.Log(string.Format(
+                    "从ConfigUnitPool中读取配置信息, AppName={0}, ConfName={1}, Version={2}", 
+                    Settings.AppName, confName, version),
+                    EnumLogLevel.Debug);
+                result = ConfigUnitPool.Instance.Get(confName, version);
+                
+                if (result != null)
+                {
+                    Settings.Logger.Log(
+                        "ConfigUnitPool中已存在配置信息",
+                        EnumLogLevel.Debug);
+                    return result;
+                }
 
-            result = Settings.Loader.LoadConfig(confName, version);
-            if (result != null)
+                Settings.Logger.Log(
+                    "通过ConfigLoader加载配置信息",
+                    EnumLogLevel.Debug);
+                result = Settings.Loader.LoadConfig(confName, version);
+                if (result != null)
+                {
+                    Settings.Logger.Log(
+                        "通过ConfigLoader完成加载，现在保存到ConfigUnitPool",
+                        EnumLogLevel.Debug);
+                    ConfigUnitPool.Instance.Set(confName, version, result);
+
+                    Settings.Logger.Log(
+                        "启动定时检查配置更新信息",
+                        EnumLogLevel.Debug);
+                    Settings.Watcher.StartWatch();
+                }
+            }
+            catch (Exception ex)
             {
-                ConfigUnitPool.Instance.Set(confName, version, result);
+                string message = string.Format(@"读取配置发生错误, Message: {0}, StackTrace: {1}",
+                    ex.Message, ex.StackTrace);
+                Settings.Logger.Log(message, EnumLogLevel.Error);
             }
 
             return result;

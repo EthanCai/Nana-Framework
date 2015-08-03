@@ -17,7 +17,7 @@ Library行为：
 
 - 即使library内部读取或者处理配置发生错误，也不能直接将错误抛给上层引用项目，必须以事件形式告知
 - library能够监听远程、本地配置变化，发生变化后，能够更新配置，并且能够以事件形式通知上层引用项目
-- Config作为基础Library，不能依赖.NET Framework外的其它Library
+- Config作为基础Library，不能依赖除了.NET Framework外的其它Library
 - Library日志默认输出到Console，上层引用项目可以指定日志的输出目标
 
 ## Sample Local Config File

@@ -14,12 +14,13 @@ namespace Nana.Framework.Config.UnitTest
         [Fact()]
         public void TestLoadXMLConfig()
         {
-            Settings settings = new Settings()
-            {
-                AppName = "Web",
-                LocalConfigDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData"),
-                LocalConfigFormat = Settings.XML_Config_Format
-            };
+            Settings settings = Settings.GetDefaultSettings();
+            settings.AppName = "Web";
+            settings.LocalConfigFileSource.LocalConfigDirectory =
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData");
+            settings.LocalConfigFileSource.LocalConfigFormat =
+                LocalConfigFileSource.XML_Config_Format;
+
             AbstractConfigLoader configLoader = new LocalConfigLoader(settings);
             ConfigUnit actual = configLoader.LoadConfig("DaoConfig", "201507300747");
             Assert.Equal("Web", actual.AppName);
@@ -28,12 +29,13 @@ namespace Nana.Framework.Config.UnitTest
         [Fact()]
         public void TestLoadJSONConfig()
         {
-            Settings settings = new Settings()
-            {
-                AppName = "Web",
-                LocalConfigDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData"),
-                LocalConfigFormat = Settings.JSON_Config_Format
-            };
+            Settings settings = Settings.GetDefaultSettings();
+            settings.AppName = "Web";
+            settings.LocalConfigFileSource.LocalConfigDirectory =
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData");
+            settings.LocalConfigFileSource.LocalConfigFormat =
+                LocalConfigFileSource.JSON_Config_Format;
+
             AbstractConfigLoader configLoader = new LocalConfigLoader(settings);
             ConfigUnit actual = configLoader.LoadConfig("DaoConfig", "201507300747");
             Assert.Equal("Web", actual.AppName);
