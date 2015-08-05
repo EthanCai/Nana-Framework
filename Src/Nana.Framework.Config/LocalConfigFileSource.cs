@@ -82,8 +82,8 @@ namespace Nana.Framework.Config
 
         private string GetDefaultLocalConfigDirectory()
         {
-            return Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
-                 HttpContext.Current != null ? @".\App_Data\conf\" : @"..\conf\");
+            return Path.Combine(
+                AppDomain.CurrentDomain.SetupInformation.ApplicationBase, @"..\conf\");
         }
     }
 }

@@ -29,7 +29,6 @@ namespace Nana.Framework.Config.UnitTest
             });
 
             ConfigFactory.Settings.AppName = "Web";
-            ConfigFactory.Settings.Logger = new ConsoleConfigLogger();
 
             ConfigUnit actual = ConfigFactory.GetConfig("NetworkConfig", "201507300747");
 

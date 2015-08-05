@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics.Eventing.Reader;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using Nana.Framework.Config.Loader;
 using Nana.Framework.Config.Logger;
 using Nana.Framework.Config.Watcher;
@@ -65,8 +59,6 @@ namespace Nana.Framework.Config
             result.Logger = result.GetDefaultConfigLogger();
             result.Watcher = result.GetDefaultConfigWatcher();
 
-            result.AppName = result.GetDefaultAppName();
-
             result.MaxTryTimesWhenFailToLoadConfig = result.GetMaxTryTimesWhenFailToLoadConfig();
             result.ConfigWatcherPollingInterval = result.GetDefaultPollingInterval();
 
@@ -78,11 +70,6 @@ namespace Nana.Framework.Config
         private AbstractConfigWatcher GetDefaultConfigWatcher()
         {
             return new LocalConfigFileWatcher(this);
-        }
-
-        private string GetDefaultAppName()
-        {
-            return ConfigurationManager.AppSettings["AppName"];
         }
 
         private int GetDefaultPollingInterval()
