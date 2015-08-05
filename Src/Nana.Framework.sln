@@ -24,6 +24,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nana.Framework.Utility.Web"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nana.Framework.Utility.WinForm", "Nana.Framework.Utility.WinForm\Nana.Framework.Utility.WinForm.csproj", "{DBBA99E3-A06B-4744-9510-65E8A39CD4F6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PerfTest", "PerfTest", "{62FED667-E0C9-4C66-94DB-008362411443}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nana.Framework.Config.PerfTest", "Nana.Framework.Config.PerfTest\Nana.Framework.Config.PerfTest.csproj", "{A266730C-9294-478F-B199-23BD593F5DCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,11 +58,16 @@ Global
 		{DBBA99E3-A06B-4744-9510-65E8A39CD4F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBBA99E3-A06B-4744-9510-65E8A39CD4F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBBA99E3-A06B-4744-9510-65E8A39CD4F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A266730C-9294-478F-B199-23BD593F5DCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A266730C-9294-478F-B199-23BD593F5DCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A266730C-9294-478F-B199-23BD593F5DCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A266730C-9294-478F-B199-23BD593F5DCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{403519E4-A36A-490E-B74B-549659645676} = {FC487181-AD15-49E0-877E-0FA42A711BEA}
+		{A266730C-9294-478F-B199-23BD593F5DCC} = {62FED667-E0C9-4C66-94DB-008362411443}
 	EndGlobalSection
 EndGlobal

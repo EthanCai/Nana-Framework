@@ -69,14 +69,16 @@ namespace Nana.Framework.Config.Watcher
             {
                 try
                 {
-                    var configUnitCacheClone = CloneHelper.DeepCopy(ConfigUnitPool.Instance.Cache);
                     var localConfigLoader = new LocalConfigLoader(this.Settings);
+                    List<string> confNameList = ConfigUnitPool.Instance.Cache.Keys.ToList();
 
-                    foreach (var confName in configUnitCacheClone.Keys)
+                    foreach (var confName in confNameList)
                     {
-                        var configOfDifferentVersions = configUnitCacheClone[confName];
-                        if (configOfDifferentVersions == null) continue;
+                        if (ConfigUnitPool.Instance.Cache[confName] == null) continue;
 
+                        var configOfDifferentVersions = 
+                            ConfigUnitPool.Instance.Cache[confName].ToDictionary(
+                                p => p.Key, p => p.Value);
                         foreach (var version in configOfDifferentVersions.Keys)
                         {
                             var configUnitInPool = configOfDifferentVersions[version];

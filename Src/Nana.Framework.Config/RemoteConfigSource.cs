@@ -33,8 +33,8 @@ namespace Nana.Framework.Config
 
         private string GetDefaultRemoteConfigCacheDirectory()
         {
-            return Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
-                 HttpContext.Current != null ? @".\App_Data\confcache\" : @"..\confcache\");
+            return Path.Combine(
+                AppDomain.CurrentDomain.SetupInformation.ApplicationBase, @"..\confcache\");
         }
     }
 }
