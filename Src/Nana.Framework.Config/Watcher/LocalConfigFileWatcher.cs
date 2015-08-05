@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Nana.Framework.Common;
 using Nana.Framework.Config.Loader;
+using Nana.Framework.Utility;
 
 namespace Nana.Framework.Config.Watcher
 {
