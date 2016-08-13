@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Configuration;
+using System.Web;
 
 namespace Nana.Framework.Utility
 {
@@ -30,15 +31,20 @@ namespace Nana.Framework.Utility
 
         private const string TXT_LOG_PATH = "TxtLogPath";
 
-        private object _lockFileAppend = new object();
-
         private TxtLogHelper()
         {
             _logRootPath = ConfigurationManager.AppSettings[TXT_LOG_PATH];
 
             if (string.IsNullOrEmpty(_logRootPath))
             {
-                _logRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @".\log\txt_log");
+                if (HttpContext.Current != null)
+                {
+                    _logRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @".\log\txt_log");
+                }
+                else
+                {
+                    _logRootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\log\txt_log");
+                }
             }
 
             if (!Directory.Exists(_logRootPath))
@@ -65,9 +71,9 @@ namespace Nana.Framework.Utility
         public void Log(string message, EnumConfigLogLevel level)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("[{0}] ", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            sb.AppendFormat("[{0}] ", level.ToString());
-            sb.Append(message);
+            sb.Append(DateTime.Now.ToString() + "  ");
+            sb.Append(level.ToString() + "  ");
+            sb.Append(message + "  ");
             FileAppend(LogFile, sb.ToString());
         }
 
@@ -76,40 +82,37 @@ namespace Nana.Framework.Utility
         /// </summary>
         /// <param name="path">文件路径</param>
         /// <param name="content">内容</param>
-        private void FileAppend(string path, string content)
+        private static void FileAppend(string path, string content)
         {
             FileStream fs = null;
             StreamWriter sw = null;
-
-            lock (_lockFileAppend)
+            
+            try
             {
-                try
+                if (!File.Exists(path))
                 {
-                    if (!File.Exists(path))
-                    {
-                        fs = File.Open(path, FileMode.OpenOrCreate);
-                        sw = new StreamWriter(fs, System.Text.Encoding.GetEncoding("utf-8"));
-                        sw.WriteLine(content);
-                    }
-                    else
-                    {
-                        fs = File.Open(path, FileMode.Append);
-                        sw = new StreamWriter(fs, System.Text.Encoding.GetEncoding("utf-8"));
-                        sw.WriteLine(content);
-                    }
+                    fs = File.Open(path, FileMode.OpenOrCreate);
+                    sw = new StreamWriter(fs, System.Text.Encoding.GetEncoding("utf-8"));
+                    sw.WriteLine(content);
                 }
-                finally
+                else
                 {
-                    if (sw != null)
-                    {
-                        sw.Close();
-                        sw.Dispose();
-                    }
-                    if (fs != null)
-                    {
-                        fs.Close();
-                        fs.Dispose();
-                    }
+                    fs = File.Open(path, FileMode.Append);
+                    sw = new StreamWriter(fs, System.Text.Encoding.GetEncoding("utf-8"));
+                    sw.WriteLine(content);
+                }
+            }
+            finally
+            {
+                if (sw != null)
+                {
+                    sw.Close();
+                    sw.Dispose();
+                }
+                if (fs != null)
+                {
+                    fs.Close();
+                    fs.Dispose();
                 }
             }
         }

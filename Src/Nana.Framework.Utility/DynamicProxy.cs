@@ -9,19 +9,27 @@ using System.Runtime.Remoting.Messaging;
 
 namespace Nana.Framework.Utility
 {
-    /// <summary>
-    /// To learn more about DynamicProxy, visit following web pages:
-    /// http://www.codeproject.com/Articles/104978/Dynamic-Decorator-Pattern
-    /// http://www.codeproject.com/Articles/219425/Dynamic-Decorator-and-Castle-DynamicProxy-Comparis
-    /// </summary>
-    public class ObjectProxyFactory
+    public delegate void DecorationDelegate(object target, object[] parameters);
+
+    public class Decoration
     {
-        public static object CreateProxy(object target, String[] arrMethods,
-            Decoration preAspect, Decoration postAspect)
+        public Decoration(DecorationDelegate n, object[] p)
         {
-            ObjectProxy dp = new ObjectProxy(target, arrMethods, preAspect, postAspect);
-            object o = dp.GetTransparentProxy();
-            return o;
+            action = n;
+            paras = p;
+        }
+
+        private DecorationDelegate action;
+        private object[] paras;
+
+        public DecorationDelegate Action
+        {
+            get { return action; }
+        }
+
+        public object[] Parameters
+        {
+            get { return paras; }
         }
     }
 
@@ -125,27 +133,14 @@ namespace Nana.Framework.Utility
         }
     }
 
-    public delegate void DecorationDelegate(object target, object[] parameters);
-
-    public class Decoration
+    public class ObjectProxyFactory
     {
-        public Decoration(DecorationDelegate n, object[] p)
+        public static object CreateProxy(object target, String[] arrMethods,
+            Decoration preAspect, Decoration postAspect)
         {
-            action = n;
-            paras = p;
-        }
-
-        private DecorationDelegate action;
-        private object[] paras;
-
-        public DecorationDelegate Action
-        {
-            get { return action; }
-        }
-
-        public object[] Parameters
-        {
-            get { return paras; }
+            ObjectProxy dp = new ObjectProxy(target, arrMethods, preAspect, postAspect);
+            object o = dp.GetTransparentProxy();
+            return o;
         }
     }
 }

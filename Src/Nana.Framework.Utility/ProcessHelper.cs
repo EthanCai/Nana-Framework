@@ -89,7 +89,6 @@ namespace Nana.Framework.Utility
             }
             return false;
         }
-
         /// <summary>
         /// 运行命令，返回控制台内容
         /// </summary>

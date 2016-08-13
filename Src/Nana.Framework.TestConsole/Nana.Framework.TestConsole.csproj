@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F9877707-F0E3-4A2E-BB68-9DDA7A51AEF5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nana.Framework.TestConsole</RootNamespace>
+    <AssemblyName>Nana.Framework.TestConsole</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ServiceStack.Common, Version=3.9.24.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PubRef\ServiceStack.Redis-v3.9.24\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=3.9.24.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PubRef\ServiceStack.Redis-v3.9.24\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Redis, Version=3.9.24.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\PubRef\ServiceStack.Redis-v3.9.24\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\..\PubRef\ServiceStack.Redis-v3.9.24\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nana.Common.Config\Nana.Common.Config.csproj">
+      <Project>{5b0d7fcc-20ec-44a8-9d08-628b51eccea9}</Project>
+      <Name>Nana.Common.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nana.Framework.Cache\Nana.Framework.Cache.csproj">
+      <Project>{208f8010-448b-4ee7-8cd2-05bb3c0a53af}</Project>
+      <Name>Nana.Framework.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nana.Framework.Configuration\Nana.Framework.Configuration.csproj">
+      <Project>{b9b645b3-8ee4-4d42-9bc9-e39305fad934}</Project>
+      <Name>Nana.Framework.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nana.Framework.Log\Nana.Framework.Log.csproj">
+      <Project>{7bf5617c-0ef4-4065-9616-ae0767d2350a}</Project>
+      <Name>Nana.Framework.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nana.Framework.Utility\Nana.Framework.Utility.csproj">
+      <Project>{239e2324-8db7-4a37-aaee-5c830f67cdac}</Project>
+      <Name>Nana.Framework.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="conf\Cache.config" />
+    <None Include="conf\log4net.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="conf\LogHelper.config" />
+    <None Include="conf\DaoConfig.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

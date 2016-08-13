@@ -1,10 +1,10 @@
 using System;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
+using System.Web;
 using System.Net;
 using System.Net.Sockets;
 using System.Net.NetworkInformation;
-using System.Web;
 
 namespace Nana.Framework.Utility
 {
@@ -44,6 +44,44 @@ namespace Nana.Framework.Utility
 
 
         #region ==================== Public Method ====================
+
+        /// <summary>
+        /// 得到客户端IP
+        /// </summary>
+        /// <param name="httpContext">HttpContext对象</param>
+        /// <returns>客户端ip字符串</returns>
+        public static string GetClientIp(HttpContext httpContext)
+        {
+            string result = string.Empty;
+
+            try
+            {
+                result = httpContext.Request.ServerVariables["REMOTE_ADDR"];
+            }
+            catch
+            {
+                return "";
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 得到客户端SessionId
+        /// </summary>
+        /// <param name="httpContext">HttpContext对象</param>
+        /// <returns>客户端的SessionId</returns>
+        public static string GetClientSessionId(HttpContext httpContext)
+        {
+            string result = String.Empty;
+            if (httpContext.Session != null
+                && !String.IsNullOrEmpty(httpContext.Session.SessionID))
+            {
+                result = httpContext.Session.SessionID;
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// 获得服务器IP
